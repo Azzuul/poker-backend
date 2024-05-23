@@ -1,0 +1,19 @@
+server:
+  port: ${PORT:8080}
+  error:
+    include-message: always
+  compression:
+    enabled: ${COMPRESSION_ENABLED:true}
+    mime-types: application/json
+
+spring:
+  banner:
+    location: classpath:/banner
+
+management:
+  endpoints:
+    web:
+      base-path: /
+  endpoint:
+    health:
+      show-details: ALWAYS

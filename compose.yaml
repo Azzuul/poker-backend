@@ -1,0 +1,64 @@
+services:
+  traefik:
+    image: "traefik:v3.0"
+    command:
+      - "--log.level=INFO"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entryPoints.web.address=:80"
+    networks:
+      - poker-network
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+  mongo:
+    image: "mongo:8.0-rc"
+    volumes:
+      - "mongo-data:/data/db"
+    networks:
+      - poker-network
+
+  card:
+    build: core/card
+    deploy:
+      replicas: 2
+    networks:
+      - poker-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.card.rule=Host(`card.localhost`)"
+      - "traefik.http.routers.card.entrypoints=web"
+    depends_on:
+      - mongo
+      - traefik
+
+#  game:
+#    build: core/game
+#    ports:
+#      - 8081:8081
+#    environment:
+#      - DATABASE_URL=jdbc:mysql://mysql:3307/db_poker_game
+#      - DATABASE_USERNAME=root
+#      - DATABASE_PASSWORD=admin
+#    depends_on:
+#      - mysql
+#  mysql:
+#    image: mysql
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root
+#      MYSQL_DATABASE: db_poker_game
+#      MYSQL_USER: root
+#      MYSQL_PASSWORD: admin
+#    ports:
+#      - "3307:3307"
+
+
+networks:
+  poker-network:
+
+volumes:
+  mongo-data:

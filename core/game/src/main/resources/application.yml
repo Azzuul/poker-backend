@@ -1,0 +1,23 @@
+#server:
+#  port: ${PORT:8081}
+#  error:
+#    include-message: always
+#  compression:
+#    enabled: ${COMPRESSION_ENABLED:true}
+#    mime-types: application/json
+#
+#spring:
+#  datasource:
+#    url: jdbc:mysql://mysql:3306/db_poker_game
+#    username: root
+#    password: admin
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#  banner:
+#    location: classpath:/banner
+#
+#
+#
