@@ -9,4 +9,4 @@ Ejecutar un insert a la tabla tbl_card_types
 - INSERT INTO tbl_card_types (id, name) VALUES (4,'Diamante');
 
 Ejecutar el application de la carpeta game. 
-## Ejecutar el docker compose para los contenedores del card.
+Ejecutar el docker compose para los contenedores del card.
